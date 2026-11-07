@@ -2,9 +2,9 @@
    BACKEND "demo"     = everything stays in this browser (for practice and training).
    BACKEND "supabase" = answers go to your database. Fill in the two Supabase values below. */
 window.SALAMA_CONFIG = {
-  BACKEND: "demo",
-  SUPABASE_URL: "https://YOUR-PROJECT.supabase.co",
-  SUPABASE_ANON_KEY: "YOUR-ANON-PUBLIC-KEY",
+  BACKEND: "supabase",
+  SUPABASE_URL: "https://pfocmyckrnjgxcfertyh.supabase.co",
+  SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBmb2NteWNrcm5qZ3hjZmVydHloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM5NDY0ODIsImV4cCI6MjEwOTUyMjQ4Mn0.JLp5XlXp1lHsogPjlgpIKa1TPbPRmwZefzj74c-Zacs",
 
   STUDY_NAME: "Salama Check-In pilot (NDU-Kenya, Defence College of Health Sciences)",
   APP_VERSION: "1.1.0",
@@ -12,10 +12,10 @@ window.SALAMA_CONFIG = {
 
   // Unit and group codes shown in the app. They are group labels, never names of people.
   UNITS: [
-    { code: "DCHS-APP", label: "DCHS applicant (selection stage)" },
-    { code: "DCHS-STU", label: "DCHS student (admitted)" },
-    { code: "UNIT-A",   label: "Pilot unit A" },
-    { code: "UNIT-B",   label: "Pilot unit B" },
+    { code: "DCHS-STU", label: "DCHS student (enrolled)" },
+    { code: "DCHS-APP", label: "DCHS applicant (not yet enrolled)" },
+    { code: "UNIT-A",   label: "Pilot unit A (later phase)" },
+    { code: "UNIT-B",   label: "Pilot unit B (later phase)" },
     { code: "OTHER",    label: "Other or not sure" }
   ],
 
@@ -27,17 +27,31 @@ window.SALAMA_CONFIG = {
   // database/edge_ai_guide.ts as a Supabase Edge Function and paste its URL here. Do this only with ethics and data-protection approval:
   // what people type is sent to an AI provider outside the phone.
   // Phone number of the nurse call-back phone for the "No data or signal?" text card. Leave "" to hide it.
-  NURSE_SMS: "",
+  NURSE_SMS: "+2547xxxxxxxx",   // placeholder: replace with the real nurse phone when the service is adopted
   AI_ENDPOINT: "",
+
+  // Who can use this link. "student" = DCHS students and applicants only (default for this study).
+  // Add "personnel", "family" or "informant" later if the study is extended.
+  ROLES: ["student"],
+  // true = the expert-input page (index.html?role=informant&form=delphi) works for the five-staff expert review, without showing that option to students.
+  EXPERT_LINK: true,
+  // Number of students you expect to take part. The monthly report uses it to show the participation rate. Leave 0 to hide it.
+  EXPECTED_PARTICIPANTS: 0,
+
+  // Shown to participants before they agree to take part (the "Your protections" card). Fill in after ethics approval.
+  ETHICS_REF: "Ethics approval number: [to be added]",
+  CONTACT_TEXT: "Supervisor and ethics committee contacts: [to be added]",
 
   // Referral and contact buttons shown under "Get help". Each can have tel, whatsapp (digits with country code) and sms.
   // Fill these in with your confirmed local contacts before go-live. hours and note are free text.
   REFERRALS: [
-    { label: "DCHS student support office", note: "Add the confirmed number before go-live", hours: "Weekdays", tel: "", whatsapp: "", sms: "" },
-    { label: "Chaplain", note: "Add the confirmed number before go-live", tel: "", whatsapp: "" },
-    { label: "Welfare officer", note: "Money, housing, family. Add before go-live", tel: "", whatsapp: "" }
+    { label: "DCHS student support office", note: "Placeholder number, to be updated when the service is adopted", hours: "Weekdays", value: "+2547xxxxxxxx", tel: "+2547xxxxxxxx", whatsapp: "", sms: "" },
+    { label: "Chaplain", note: "Placeholder number, to be updated", value: "+2547xxxxxxxx", tel: "+2547xxxxxxxx", whatsapp: "" },
+    { label: "Welfare officer", note: "Money, housing, family. Placeholder number, to be updated", value: "+2547xxxxxxxx", tel: "+2547xxxxxxxx", whatsapp: "" }
   ],
 
+  // Shown on the call-back screen. Edit to match the real rota agreed with the hospital (see proposal section 3.4.4).
+  COVER_NOTE: "A nurse takes requests from 07:00 to 21:00. If you need help outside those hours, use the numbers on the Get help page. Your request will be seen first when cover starts.",
   CALLBACK_HOURS_HIGH: 8,              // target for same-day requests
   CALLBACK_DAYS_ROUTINE: 7,            // target for routine requests
 
@@ -47,7 +61,8 @@ window.SALAMA_CONFIG = {
 
   // Local contacts: fill in before go-live (nurse line, chaplain, welfare office, duty officer).
   LOCAL_CONTACTS: [
-    { label: "Pilot nurse line", note: "Add the number before go-live", value: "to be added" }
+    { label: "Nurse on call (cover hours 07:00 to 21:00)", note: "Placeholder number, to be updated when the service is adopted", value: "+2547xxxxxxxx", tel: "+2547xxxxxxxx" },
+    { label: "Duty medical officer (after hours)", note: "Placeholder number, to be updated", value: "+2547xxxxxxxx", tel: "+2547xxxxxxxx" }
   ],
   // National lines. Confirm every number and hours with the provider before go-live.
   NATIONAL_LINES: [

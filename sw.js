@@ -1,6 +1,6 @@
 /* Offline shell: the app opens without data. Answers wait in a queue on the phone and are sent when a connection returns. */
-const V = "salama-v3";
-const SHELL = ["./", "index.html", "config.js", "manifest.webmanifest", "icon.svg"];
+const V = "salama-v5";
+const SHELL = ["./", "index.html", "survey.html", "config.js", "manifest.webmanifest", "icon.svg", "lang.js", "lang_sw.js", "portal.html", "qrcode.js"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(V).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== V).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener("fetch", e => {
